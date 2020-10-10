@@ -66,20 +66,21 @@ class DataLoader:
         print("Truncating table '%s'" % tablename)
         with self.engine.connect() as connection:
             connection.execute("DELETE FROM %s" % tablename)
+    
+    def list_tables(self):
+        meta = db.MetaData()
+        meta.reflect(bind=self.engine)
+        return meta.tables
 
 if __name__ == '__main__':
     dl = DataLoader('datamap.yaml')
     dl.validate_datamap()
     dl.upsert_data()
     dl.truncate_table('mytable')
+    print("database table names: %s" % dl.list_tables().keys())
+    print("database table info: %s" % dl.list_tables())
 
-    engine = db.create_engine(dl.dburl)
-    #engine = db.create_engine(dl.data['dburl'])
-    with engine.connect() as connection:
-        result = connection.execute("SELECT name FROM sqlite_master WHERE type='table';")
-        #print(result)
-        for row in result:
-            print(row)
+    engine = db.create_engine(dl.data['dburi'])
     if not engine.dialect.has_table(engine, "usertable"):  # If table don't exist, Create.
         metadata = db.MetaData(engine)
         # Create a table with the appropriate Columns
