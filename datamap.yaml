@@ -1,32 +1,20 @@
-{
-  "dburi": "sqlite:///./generated-data/database.db",
-  "datafilemaps": [
-    {
-      "table": "usertable",
-      "datafile": "./generated-data/users.json",
-      "fieldmaps": [
-        "firstname": "firstname",
-        "lastname": "lastname",
-        "street": "street",
-        "suburb": "suburb",
-        "state": "region",
-        "country": "country"
-      ]
-    },
-    {
-      "table": "usertable2",
-      "datafile": "./generated-data/users.json",
-      "fieldmaps": [
-        {
-          "firstname": "firstname",
-          "lastname": "lastname",
-          "street": "street",
-          "suburb": "suburb",
-          "state": "region",
-          "country": "country"
-        }
-      ]
-    },
-
-  ]
-}
+dburi: sqlite:///./generated-data/database.db
+datafilemaps:
+- table: usertable
+  datafile: ./generated-data/users.json
+  fieldmaps:
+  - firstname: firstname
+    lastname: lastname
+    street: street
+    suburb: suburb
+    state: region
+    country: country
+- table: usertable2
+  datafile: ./generated-data/users.json
+  fieldmaps:
+  - firstname: firstname
+    lastname: lastname
+    street: street
+    suburb: suburb
+    state: region
+    country: country

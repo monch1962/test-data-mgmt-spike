@@ -2,7 +2,7 @@
 
 #from sqlalchemy import Table, MetaData, Column, Integer
 import sqlalchemy as db
-import sys
+import os, json
 
 class DataLoader:
     def __init__(self, datamapfile):
@@ -21,11 +21,12 @@ class DataLoader:
         print(self.data)
         with engine.connect() as connection:
             for d in self.data['datafilemaps']:
-                self._validate_table_exists(engine, d['table'])
-                print(d['fieldmaps'])
-                for k in d['fieldmaps']:
-                    print(k)
-                    self._validate_field_exists(engine, d['table'], k)
+                if not self._validate_table_exists(engine, d['table']):
+                    return False
+                for fm in d['fieldmaps']:
+                    for k in fm:
+                        if not self._validate_field_exists(engine, d['table'], k):
+                            return False
 
     def _validate_table_exists(self, engine, tablename):
         print("Checking existence of table '%s'" % tablename)
@@ -45,6 +46,9 @@ class DataLoader:
                 print("Field '%s' not found in table '%s'...exiting" % (fieldname, tablename))
                 return False
         return True
+    
+    def upsert_data(self, datafile):
+        pass
     
     def create_table_if_not_exists(self):
         pass
