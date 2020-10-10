@@ -1,6 +1,13 @@
 anybadge==1.7.0
+coverage==5.3
+iniconfig==1.0.1
 mysqlclient==2.0.1
+pluggy==0.13.1
 psycopg2==2.8.6
+py==1.9.0
+pylint-badge @ git+https://github.com/rossi-fi/pylint-badge@e8a3d011b9b80a85b986dadb8a34116f3f9eac7c
 pylint-exit==1.2.0
 pymssql==2.1.5
+pytest==6.1.1
+pytest-cov==2.10.1
 SQLAlchemy==1.3.19
