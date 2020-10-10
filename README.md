@@ -37,3 +37,11 @@ The `datamap.yaml` file in this repository contains a sample for mapping generat
 After making code changes, but before committing and pushing to github
 
 `$ pylint-badge data_loader.py pylint-badge.svg`
+
+## TODO
+- add some useful test cases
+- confirm things work for various database types
+- create some more example use cases for the `TestDataManagement` class
+- add environment variable to point to the datamap YAML file
+- get Dockerfile working to read datamap YAML from an environment variable and test data to populate from a volume
+- add some documentation to the `datamap.yaml` file, describing what the various YAML elements are doing
