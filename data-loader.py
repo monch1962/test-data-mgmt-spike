@@ -7,39 +7,39 @@ import os, json
 class DataLoader:
     def __init__(self, datamapfile):
         self.datamapfile = datamapfile
+        self._read_datamap()
 
-    def read_datamap(self):
+    def _read_datamap(self):
         import yaml
         with open(self.datamapfile) as f:
             data = yaml.load(f, Loader=yaml.FullLoader)
             self.data = data
             self.dburl = data['dburi']
-            return data
+        self.engine = db.create_engine(self.data['dburi'])
     
     def validate_datamap(self):
-        engine = db.create_engine(self.data['dburi'])
         print(self.data)
-        with engine.connect() as connection:
+        with self.engine.connect() as connection:
             for d in self.data['datafilemaps']:
-                if not self._validate_table_exists(engine, d['table']):
+                if not self._validate_table_exists(d['table']):
                     return False
                 for fm in d['fieldmaps']:
                     for k in fm:
-                        if not self._validate_field_exists(engine, d['table'], k):
+                        if not self._validate_field_exists(d['table'], k):
                             return False
 
-    def _validate_table_exists(self, engine, tablename):
+    def _validate_table_exists(self, tablename):
         print("Checking existence of table '%s'" % tablename)
-        if not engine.dialect.has_table(engine, tablename):
+        if not self.engine.dialect.has_table(self.engine, tablename):
             print("Table '%s' not in database...exiting without updating data" % tablename)
             return False
         else:
             print("Table '%s' found" % tablename)
         return True
 
-    def _validate_field_exists(self, engine, tablename, fieldname):
+    def _validate_field_exists(self, tablename, fieldname):
         print("Checking if field '%s' exists in table '%s'" % (fieldname, tablename))
-        with engine.connect() as connection:
+        with self.engine.connect() as connection:
             try:
                 rows = connection.execute("SELECT %s FROM %s LIMIT 1;" % (fieldname, tablename))
             except:
@@ -47,18 +47,34 @@ class DataLoader:
                 return False
         return True
     
-    def upsert_data(self, datafile):
+    def upsert_data(self):
+        print("About to upsert data")
+        with self.engine.connect() as connection:
+            for dfm in self.data['datafilemaps']:
+                t = dfm['table']
+                df = dfm['datafile']
+                print("Populating table '%s' from file '%s'" % (t, df))
+                for fm in dfm['fieldmaps']:
+                    print('fm: %s' % fm)
+                    for f in fm:
+                        print('f: %s' % f)
+
+    def _upsert_record(self, tablename, record):
         pass
-    
-    def create_table_if_not_exists(self):
-        pass
+
+    def truncate_table(self, tablename):
+        print("Truncating table '%s'" % tablename)
+        with self.engine.connect() as connection:
+            connection.execute("DELETE FROM %s" % tablename)
 
 if __name__ == '__main__':
     dl = DataLoader('datamap.yaml')
-    datamap = dl.read_datamap()
-    print(datamap)
     dl.validate_datamap()
+    dl.upsert_data()
+    dl.truncate_table('mytable')
+
     engine = db.create_engine(dl.dburl)
+    #engine = db.create_engine(dl.data['dburl'])
     with engine.connect() as connection:
         result = connection.execute("SELECT name FROM sqlite_master WHERE type='table';")
         #print(result)
