@@ -42,6 +42,7 @@ After making code changes, but before committing and pushing to github
 `$ coverage-badge -o coverage.svg`
 
 ## TODO
+- implement upsert functionality
 - add some useful test cases
 - confirm things work for various database types
 - create some more example use cases for the `TestDataManagement` class
