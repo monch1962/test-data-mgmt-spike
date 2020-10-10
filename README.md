@@ -2,6 +2,7 @@
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![pylint](https://raw.githubusercontent.com/monch1962/test-data-mgmt-spike/main/pylint-badge.svg)](https://github.com/monch1962/test-data-mgmt-spike)
+[![Build Status](https://dev.azure.com/monch1962/monch1962/_apis/build/status/monch1962.test-data-mgmt-spike?branchName=main)](https://dev.azure.com/monch1962/monch1962/_build/latest?definitionId=14&branchName=main)
 
 # test-data-mgmt-spike
 Spike to try out some ideas with Test Data Management.
