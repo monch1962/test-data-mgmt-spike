@@ -29,6 +29,31 @@ Use this tool to generate data for the table/s you wish to populate, then save t
 
 The `datamap.yaml` file in this repository contains a sample for mapping generated data files to the database, tables & fields you wish to update
 
+### Sample database URIs
+
+Database URIs in the `datamap.yaml` file follow this format:
+- dialect+driver://username:password@host:port/database
+
+Some examples:
+| Database type | Sample URL |
+| --- | --- |
+| MySQL | `mysql://scott:tiger@localhost/foo` |
+| Postgres | `postgresql://scott:tiger@localhost:5432/mydatabase`
+| AWS Aurora (Postgres) | `postgresql+auroradataapi://:@/my_db_name`
+| SQLite | `sqlite:///directory/file.db`
+| Oracle | `oracle://scott:tiger@127.0.0.1:1521/sidname`
+| Microsoft SQL Server | `mssql+pymssql://scott:tiger@hostname:port/dbname`
+| AWS Redshift | `redshift+psycopg2://username@host.amazonaws.com:5439/database`
+| Google BigQuery | `bigquery://project`
+| Google Sheets | `gsheets://`
+| IBM DB2 | `db2+ibm_db://user:pass@host[:port]/database`
+| SAP HANA | `hana://username:password@example.de:30015`
+| Snowflake | `snowflake://{user}:{password}@{account}/`
+| Teradata | `teradatasql://guest:please@whomooz`
+| Firebird | `firebird://username:password@localhost///home/paulgd/projects/databases/my_project.fdb`
+
+
+
 ## To Use
 
 `$ ./data_loader.py` should run as a sample to update the `generated-data/database.db` SQLite database.
