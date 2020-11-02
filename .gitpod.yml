@@ -1,3 +1,3 @@
 tasks:
   - init: pip install -r requirements.txt && pylint-badge data_loader.py pylint-badge.svg
-    command: python data-loader.py
+    command: python data_loader.py
