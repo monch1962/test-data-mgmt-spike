@@ -6,9 +6,10 @@ demonstrate how to use the class
 
 #from sqlalchemy import Table, MetaData, Column, Integer
 #import os, json
+import os
+import sys
 import sqlalchemy as db
 import yaml
-
 
 class TestDataLoader:
     """
@@ -22,8 +23,8 @@ class TestDataLoader:
 
     def _read_datamap(self):
         #import yaml
-        with open(self.datamapfile) as f:
-            data = yaml.load(f, Loader=yaml.FullLoader)
+        with open(self.datamapfile) as datamap_file:
+            data = yaml.load(datamap_file, Loader=yaml.FullLoader)
             self.data = data
             self.dburl = data['dburi']
         self.engine = db.create_engine(self.data['dburi'])
@@ -34,12 +35,12 @@ class TestDataLoader:
         """
         print(self.data)
         #with self.engine.connect() as connection:
-        for d in self.data['datafilemaps']:
-            if not self._validate_table_exists(d['table']):
+        for data_file_map in self.data['datafilemaps']:
+            if not self._validate_table_exists(data_file_map['table']):
                 return False
-            for fm in d['fieldmaps']:
-                for k in fm:
-                    if not self._validate_field_exists(d['table'], k):
+            for field_map in data_file_map['fieldmaps']:
+                for k in field_map:
+                    if not self._validate_field_exists(data_file_map['table'], k):
                         return False
         return True
 
@@ -73,14 +74,14 @@ class TestDataLoader:
         """
         print("About to upsert data")
         with self.engine.connect() as connection:
-            for dfm in self.data['datafilemaps']:
-                t = dfm['table']
-                df = dfm['datafile']
-                print("Populating table '%s' from file '%s'" % (t, df))
-                for fm in dfm['fieldmaps']:
-                    print('fm: %s' % fm)
-                    for f in fm:
-                        print('f: %s' % f)
+            for df_map in self.data['datafilemaps']:
+                db_table = df_map['table']
+                db_datafile = df_map['datafile']
+                print("Populating table '%s' from file '%s'" % (db_table, db_datafile))
+                for field_map in df_map['fieldmaps']:
+                    print('field_map: %s' % field_map)
+                    for field in field_map:
+                        print('field: %s' % field)
 
     def _upsert_record(self, tablename, record):
         pass
@@ -102,14 +103,23 @@ class TestDataLoader:
         return meta.tables
 
 if __name__ == '__main__':
-    dl = TestDataLoader('datamap.yaml')
-    dl.validate_datamap()
-    dl.upsert_data()
-    dl.truncate_table('mytable')
-    print("database table names: %s" % dl.list_tables().keys())
-    print("database table info: %s" % dl.list_tables())
+    datamap = os.environ.get("DATAMAP")
+    if datamap is None:
+        NO_DATAMAP = """
+        Error:
+        you need environment variable DATAMAP to point to your datamap YAML file
+        """
+        print(NO_DATAMAP, file=sys.stderr)
+        sys.exit(1)
+    #dl = TestDataLoader('datamap.yaml')
+    data_loader = TestDataLoader(datamap)
+    data_loader.validate_datamap()
+    data_loader.upsert_data()
+    data_loader.truncate_table('mytable')
+    print("database table names: %s" % data_loader.list_tables().keys())
+    print("database table info: %s" % data_loader.list_tables())
 
-    engine = db.create_engine(dl.data['dburi'])
+    engine = db.create_engine(data_loader.data['dburi'])
     if not engine.dialect.has_table(engine, "usertable"):  # If table don't exist, Create.
         metadata = db.MetaData(engine)
         # Create a table with the appropriate Columns

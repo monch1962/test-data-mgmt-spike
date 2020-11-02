@@ -56,7 +56,7 @@ Some examples:
 
 ## To Use
 
-`$ ./data_loader.py` should run as a sample to update the `generated-data/database.db` SQLite database.
+`$ DATAMAP=datamap.yaml ./data_loader.py` should run as a sample to update the `generated-data/database.db` SQLite database.
 
 ## To update PyLint & coverage badges
 
