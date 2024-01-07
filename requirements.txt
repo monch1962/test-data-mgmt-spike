@@ -45,8 +45,8 @@ py==1.9.0
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pybigquery==0.4.15
-pycryptodome==3.9.8
-pycryptodomex==3.9.8
+pycryptodome==3.19.1
+pycryptodomex==3.19.1
 PyJWT==1.7.1
 pylint-badge @ git+https://github.com/rossi-fi/pylint-badge@e8a3d011b9b80a85b986dadb8a34116f3f9eac7c
 pylint-exit==1.2.0
