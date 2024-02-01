@@ -9,7 +9,7 @@ botocore==1.17.63
 cachetools==4.1.1
 coverage==5.3
 coverage-badge==1.0.1
-cryptography==2.9.2
+cryptography==42.0.2
 docutils==0.15.2
 fdb==2.0.1
 future==0.18.2
@@ -45,7 +45,7 @@ py==1.9.0
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pybigquery==0.4.15
-pycryptodome==3.9.8
+pycryptodome==3.19.1
 pycryptodomex==3.9.8
 PyJWT==1.7.1
 pylint-badge @ git+https://github.com/rossi-fi/pylint-badge@e8a3d011b9b80a85b986dadb8a34116f3f9eac7c
