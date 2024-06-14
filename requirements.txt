@@ -39,7 +39,7 @@ oauthlib==3.1.0
 oscrypto==1.2.1
 pluggy==0.13.1
 proto-plus==1.10.2
-protobuf==3.13.0
+protobuf==3.18.3
 psycopg2==2.8.6
 py==1.9.0
 pyasn1==0.4.8
@@ -69,3 +69,5 @@ sqlalchemy-redshift==0.8.1
 teradatasql==17.0.0.6
 teradatasqlalchemy==17.0.0.0
 uritemplate==3.0.1
+certifi>=2023.7.22 # not directly required, pinned by Snyk to avoid a vulnerability
+setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
