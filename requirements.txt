@@ -69,3 +69,4 @@ sqlalchemy-redshift==0.8.1
 teradatasql==17.0.0.6
 teradatasqlalchemy==17.0.0.0
 uritemplate==3.0.1
+setuptools>=70.0.0 # not directly required, pinned by Snyk to avoid a vulnerability
