@@ -3,13 +3,13 @@ asn1crypto==1.4.0
 aurora-data-api==0.2.5
 azure-common==1.1.25
 azure-core==1.8.2
-azure-storage-blob==12.5.0
+azure-storage-blob==12.13.0
 boto3==1.14.63
 botocore==1.17.63
 cachetools==4.1.1
 coverage==5.3
 coverage-badge==1.0.1
-cryptography==2.9.2
+cryptography==42.0.8
 docutils==0.15.2
 fdb==2.0.1
 future==0.18.2
@@ -27,7 +27,7 @@ gsheets==0.5.1
 httplib2==0.18.1
 ibm-db==3.0.2
 ibm-db-sa==0.3.5
-idna==2.9
+idna==3.7
 iniconfig==1.0.1
 install==1.3.4
 isodate==0.6.0
@@ -39,15 +39,15 @@ oauthlib==3.1.0
 oscrypto==1.2.1
 pluggy==0.13.1
 proto-plus==1.10.2
-protobuf==3.13.0
+protobuf==3.18.3
 psycopg2==2.8.6
 py==1.9.0
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pybigquery==0.4.15
-pycryptodome==3.9.8
-pycryptodomex==3.9.8
-PyJWT==1.7.1
+pycryptodome==3.19.1
+pycryptodomex==3.19.1
+PyJWT==2.4.0
 pylint-badge @ git+https://github.com/rossi-fi/pylint-badge@e8a3d011b9b80a85b986dadb8a34116f3f9eac7c
 pylint-exit==1.2.0
 pymssql==2.1.5
@@ -55,11 +55,11 @@ pyOpenSSL==19.1.0
 pytest==6.1.1
 pytest-cov==2.10.1
 pytz==2020.1
-requests==2.23.0
+requests==2.32.2
 requests-oauthlib==1.3.0
-rsa==4.6
+rsa==4.7
 s3transfer==0.3.3
-snowflake-connector-python==2.3.3
+snowflake-connector-python==3.0.2
 snowflake-sqlalchemy==1.2.4
 SQLAlchemy==1.3.19
 sqlalchemy-aurora-data-api==0.2.5
@@ -69,3 +69,6 @@ sqlalchemy-redshift==0.8.1
 teradatasql==17.0.0.6
 teradatasqlalchemy==17.0.0.0
 uritemplate==3.0.1
+setuptools>=70.0.0 # not directly required, pinned by Snyk to avoid a vulnerability
+urllib3>=1.26.19 # not directly required, pinned by Snyk to avoid a vulnerability
+zipp>=3.19.1 # not directly required, pinned by Snyk to avoid a vulnerability
